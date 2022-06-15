@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Khutbah;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use RealRashid\SweetAlert\Facades\Alert;
 
 class KhutbahController extends Controller
 {
@@ -23,12 +24,17 @@ class KhutbahController extends Controller
 
     public function storeKhutbah(Request $request)
     {
+        $this->validate($request, [
+            'judul' => 'required',
+            'isi' => 'required',
+            'gambar' => 'required'
+        ]);
         Khutbah::create([
             'judul' => $request->judul,
             'isi' => $request->isi,
             'pemateri' => $request->pemateri,
         ]);
-
+        Alert::success('Congrats', "berhasil menambhakan data");
         return redirect('khutbah');
     }
 
@@ -43,12 +49,19 @@ class KhutbahController extends Controller
 
     public function updateKhutbah(Request $request, $id)
     {
+
+        $this->validate($request, [
+            'judul' => 'required',
+            'isi' => 'required',
+            'pemateri' => 'required'
+        ]);
         $khutbah = Khutbah::find($id);
         $khutbah->update([
             'judul' => $request->judul,
             'isi' => $request->isi,
             'pemateri' => $request->pemateri,
         ]);
+        Alert::success('Congrats', "berhasil mengupdate data");
 
         return redirect('/khutbah');
     }
@@ -56,6 +69,7 @@ class KhutbahController extends Controller
     {
         $khutbah = Khutbah::find($id);
         $khutbah->delete();
+        Alert::success('Congrats', 'berhasil menghapus data');
         return redirect('/khutbah');
     }
 }

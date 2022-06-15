@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Arr;
+use RealRashid\SweetAlert\Facades\Alert;
 
 class UserController extends Controller
 {
@@ -28,8 +29,8 @@ class UserController extends Controller
         }
 
         $profile->update($input);
-
-        // return redirect('/home');
-        return dd($profile);
+        Alert::success('Congrats', 'berhasil mengubah profile');
+        return redirect('/home');
+        // return dd($profile);
     }
 }

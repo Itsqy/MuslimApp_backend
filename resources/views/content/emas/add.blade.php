@@ -21,6 +21,16 @@
           <div class="card">
             <div class="card-body">
               <h5 class="card-title">Tambah Harga Emas</h5>
+  {{-- menampilkan error validasi --}}
+           @if (count($errors) > 0)
+           <div class="alert alert-danger">
+               <ul>
+                  @foreach ($errors->all() as $error)
+                       <li>{{ $error }}</li>
+                   @endforeach
+               </ul>
+           </div>
+           @endif
 
               <!-- General Form Elements -->
               <form action="{{route('storeEmas')}}" method="POST">

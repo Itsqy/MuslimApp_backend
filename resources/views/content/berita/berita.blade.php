@@ -1,5 +1,7 @@
 @extends('template')
+
 @section('content')
+@include('sweetalert::alert')
 <div class="col-12">
     <div class="card recent-sales overflow-auto">
 
@@ -15,6 +17,7 @@
             <tr>
 
               <th scope="col">id</th>
+              <th scope="col">gambar</th>
               <th scope="col">Judul</th>
               <th scope="col">Isi Berita </th>
               <th scope="col">Tanggal</th>
@@ -24,11 +27,15 @@
           </thead>
           <tbody>
 
+            <?php
+              $num = 10;
+              ?>
             @foreach ($berita as $d)
             <tr>
                 <th scope="row"><a href="#">{{$i++}}</a></th>
+                <td><img src="{{url('/storage',$d->gambar)}}" style="max-width: 100px !important; border-radius:5px;"></td>
                 <td>{{$d->judul}}</td>
-                <td>{!!$d->isi!!}</td>
+                <td><a href="">{!!substr($d->isi,0,70)!!}...</a></td>
                 <td>{{$d->created_at}}</td>
                  <td><a href="{{route('editBerita',$d->id)}}"><i class="bi bi-pencil"></i></a>
                   

@@ -78,7 +78,8 @@
 
     <!-- Template Main JS File -->
     <script src="{{ asset('assets/js/main.js') }}"></script>
-
+{{-- sweetalert 2 --}}
+<script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     {{-- ck editor --}}
     <script src="https://cdn.ckeditor.com/ckeditor5/34.1.0/classic/ckeditor.js"></script>
     <script>

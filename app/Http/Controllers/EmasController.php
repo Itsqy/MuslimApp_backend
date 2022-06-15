@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Emas;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use RealRashid\SweetAlert\Facades\Alert;
 
 class EmasController extends Controller
 {
@@ -15,10 +16,13 @@ class EmasController extends Controller
      */
     public function index()
     {
+
+        $i = 1;
         $user = Auth::user();
         $emas = Emas::orderBy('id', 'desc')->paginate(1);
+
         // $cek = select * from Emas
-        return view('content.emas.emas', compact('emas', 'user'));
+        return view('content.emas.emas', compact('emas', 'i', 'user'));
     }
 
     /**
@@ -40,9 +44,14 @@ class EmasController extends Controller
      */
     public function store(Request $request)
     {
+        $this->validate($request, [
+            'emas' => 'required',
+
+        ]);
         Emas::create([
             'hargaemas' => $request->hargaemas,
         ]);
+        Alert::success('Congrats', "anda telah menambahkan data");
         return redirect('/emas');
     }
 
@@ -79,9 +88,15 @@ class EmasController extends Controller
      */
     public function update(Request $request, $id)
     {
+        $this->validate($request, [
+            'emas' => 'required',
+
+        ]);
         $emas = Emas::find($id);
         $input = $request->all();
         $emas->update($input);
+
+        Alert::success('Congrats', "data telah di update!!");
         return redirect('/emas');
     }
 
@@ -94,8 +109,9 @@ class EmasController extends Controller
     public function destroy($id)
     {
         $emas = Emas::findOrFail($id);
+        // alert()->question('Deleting', 'Yakin ingin menghapus data anda ?');
         $emas->delete();
-
+        alert()->success('Success', 'Data berhasil dihapus');
         return redirect()->back();
     }
 }

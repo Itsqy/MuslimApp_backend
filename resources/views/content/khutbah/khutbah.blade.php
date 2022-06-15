@@ -1,5 +1,6 @@
 @extends('template')
 @section('content')
+@include('sweetalert::alert')
 <div class="col-12">
     <div class="card recent-sales overflow-auto">
 

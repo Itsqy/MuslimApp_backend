@@ -1,5 +1,6 @@
 @extends('template')
 @section('content')
+@include('sweetalert::alert')
 <div class="col-12">
     <div class="card recent-sales overflow-auto">
 
@@ -8,13 +9,13 @@
       <div class="card-body">
         
         
-        @if($emas)
-            <div class="d-flex justify-content-end" style="margin-block-start: -0.5%"  ><a class="btn btn-primary" href="{{route('toFormEmas')}}" > <i class="bi bi-plus"></i></a></div>             
-        @else()
 
-        <div class="d-flex justify-content-end" style="margin-block-start: -0.5%"  ><a class="btn btn-primary"  href="{{route('toFormEmas')}}" > <i class="bi bi-pencil"></i></a></div>             
+        @forelse ($emas as $item)
+            
+        @empty
+            <div class="d-flex justify-content-end" style="margin-block-start: -0.5%"  ><a class="btn btn-primary" href="{{route('toFormEmas')}}" > <i class="bi bi-plus"></i></a></div>             
+        @endforelse
         
-        @endif
         {{-- @if ($emas != emp)
           
         @endif --}}
@@ -35,17 +36,17 @@
 
             @foreach ($emas as $d)
             <tr>
-                <th scope="row"><a href="#">{{$d->id}}</a></th>
+                <th scope="row"><a href="#">{{$i++}}</a></th>
                 <td>Rp. {{number_format($d->hargaemas)}}</td>
                 <td>{{$d->created_at}}</td>
                 <td><a href="{{route('editEmas',$d->id)}}"><i class="bi bi-pencil"></i></a>
                   
                   
                   {{-- <a href="{{route('deleteEmas',$d->id)}}" class="ms-4"><i class="bi bi-trash"></i></a></td> --}}
-                   <form action="{{ route('deleteEmas', $d->id) }}" method="POST">
+                   {{-- <form action="{{ route('deleteEmas', $d->id) }}" method="POST">
                    @csrf
                    @method('DELETE')
-                   <button type="submit" data-toggle="tooltip" title="" class="btn btn-link btn-danger"><i class="bi bi-trash"></i></button> </form>
+                   <button type="submit" data-toggle="tooltip" title="" class="btn btn-link btn-danger"><i class="bi bi-trash"></i></button> </form> --}}
                    </td>                                     
 
               </tr>

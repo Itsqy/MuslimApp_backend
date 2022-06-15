@@ -5,11 +5,13 @@ namespace App\Http\Controllers;
 use App\Models\Berita;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use RealRashid\SweetAlert\Facades\Alert;
 
 class BeritaController extends Controller
 {
     public function index()
     {
+        // Alert::success('Congrats', 'berhasil masuk');
         $i = 1;
         $user = Auth::user();
         $berita = Berita::all();
@@ -24,13 +26,29 @@ class BeritaController extends Controller
 
     public function store(Request $request)
     {
-        Berita::create([
-            'judul' => $request->judul,
-            'isi' => $request->isi,
+
+        $this->validate($request, [
+            'judul' => 'required',
+            'isi' => 'required',
+            'gambar' => 'required|image|mimes:jpg,png,jpeg,gif,svg'
         ]);
+        if ($request->gambar) {
+            Berita::create([
+                'judul' => $request->judul,
+                'isi' => $request->isi,
+                'gambar' => $request->file('gambar')->store('image-data')
+            ]);
+        } else {
+            Berita::create([
+                'judul' => $request->judul,
+                'isi' => $request->isi,
+            ]);
+        }
+        Alert::success('Congrats', 'berhasil menambahkan data');
+
         $berita = Berita::all();
         $user = Auth::user();
-        return view('content.berita.berita', compact('berita', 'user'));
+        return redirect('/berita');
     }
 
     public function toFormEdit($id)
@@ -42,12 +60,26 @@ class BeritaController extends Controller
 
     public function updateBerita(Request $request, $id)
     {
-        $berita = Berita::find($id);
-        $berita->update([
-            'judul' => $request->judul,
-            'isi' => $request->isi,
+        $this->validate($request, [
+            'judul' => 'required',
+            'isi' => 'required',
+            'gambar' => 'required|image|mimes:jpg,png,jpeg,gif,svg'
         ]);
+        $berita = Berita::find($id);
+        if ($request->gambar) {
+            $berita->update([
+                'judul' => $request->judul,
+                'isi' => $request->isi,
+                'gambar' => $request->file('gambar')->store('image-data')
+            ]);
+        } else {
+            $berita->update([
+                'judul' => $request->judul,
+                'isi' => $request->isi,
+            ]);
+        }
 
+        Alert::success('Congrats', 'berhasil mengupdate data');
         return redirect('/berita');
     }
 
@@ -55,6 +87,7 @@ class BeritaController extends Controller
     {
         $berita = Berita::find($id);
         $berita->delete();
+        Alert::success('Congrats', 'berhasil menghapus data');
         return redirect('/berita');
     }
 }

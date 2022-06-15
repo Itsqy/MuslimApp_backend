@@ -85,48 +85,11 @@ class AuthController extends Controller
 
     public function regis(Request $request)
     {
-<<<<<<< HEAD
         $user = User::create([
             'name'          => $request->name,
             'email'         => $request->email,
             'telp'      => $request->telp,
             'password'      => Hash::make($request->password),
-=======
-        $psn = [
-            'name.required'      => 'Nama wajib diisi.',
-
-            'password.required'  => 'Password wajib diisi.',
-            'password.confirmed' => 'Password konfirmasi tidak sesuai.',
-            'password.min'       => 'Password minimal diisi dengan 5 karakter.',
-
-            'email.required'     => 'Email wajib diisi.',
-            'email.email'        => 'Email tidak valid.',
-            'email.unique'       => 'Email sudah terdaftar.',
-
-            // 'telp.required'      => 'Telepon wajib diisi.',
-            // 'telp.numeric'       => 'Telepon harus berupa angka.',
-            // 'telp.unique'        => 'Nomor telepon tertaut pada akun lain.',
-        ];
-
-        $validasi = Validator::make($request->all(), [
-            'name'               => ['required', 'string', 'max:255'],
-            'email'              => ['required', 'string', 'email', 'unique:users'],
-            // 'telp'               => ['required', 'numeric', 'unique:users'],
-            'password'           => ['required', 'min:5', 'string']
-        ], $psn);
-
-        if ($validasi->fails()) {
-            $val = $validasi->errors()->all();
-            return $this->pesanError($val[0]);
-        }
-
-        $user = User::create([
-            'name'                  => $request->name,
-            'email'                 => $request->email,
-            // 'telp'                  => $request->telp,
-            'password'              => encrypt($request->password)
-            // 'password'              => bcrypt($request->password)
->>>>>>> 2dcfbbd630f43196f692e811c5ad717feda2fb50
         ]);
         // Make token
         $token = $user->createToken('token')->plainTextToken;
@@ -137,7 +100,7 @@ class AuthController extends Controller
             'meta'          => [
                 'token'     => $token
             ]
-        ], Response::HTTP_CREATED);
+        ], Response::HTTP_OK);
     }
 
     public function login(Request $request)
@@ -153,7 +116,7 @@ class AuthController extends Controller
                     'token'         => [
                         'token'     => $token
                     ]
-                ], Response::HTTP_CREATED);
+                ], Response::HTTP_OK);
             } else {
                 return response([
                     'message'       => 'Wrong password!'

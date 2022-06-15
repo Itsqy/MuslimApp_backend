@@ -22,8 +22,18 @@
             <div class="card-body">
               <h5 class="card-title">Tambah Berita</h5>
 
+               {{-- menampilkan error validasi --}}
+           @if (count($errors) > 0)
+           <div class="alert alert-danger">
+               <ul>
+                  @foreach ($errors->all() as $error)
+                       <li>{{ $error }}</li>
+                   @endforeach
+               </ul>
+           </div>
+           @endif
               <!-- General Form Elements -->
-              <form action="{{route('storeBerita')}}" method="POST">
+              <form action="{{route('storeBerita')}}" method="POST" enctype="multipart/form-data">
                 @csrf
                 <div class="row mb-3">
                   <label for="inputText" class="col-sm-2 col-form-label">Judul </label>
@@ -36,6 +46,13 @@
                   <div class="col-sm-10">
                      {{-- <div id="editor">This is some sample content.</div> --}}
                     <textarea id="editor" type="text" name="isi" value="" class="form-control"></textarea>
+                  </div>
+                </div>
+                <div class="row mb-3">
+                  <label for="inputEmail" class="col-sm-2 col-form-label">Gambar Berita</label>
+                  <div class="col-sm-10">
+                     {{-- <div id="editor">This is some sample content.</div> --}}
+                    <input type="file" name="gambar" value="" class="form-control">
                   </div>
                 </div>
                 <div class="row mb-3">
