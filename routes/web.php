@@ -6,6 +6,7 @@ use App\Http\Controllers\HomeController;
 use App\Http\Controllers\API\DoaController;
 use App\Http\Controllers\BeritaController;
 use App\Http\Controllers\EmasController;
+use App\Http\Controllers\KategoriController;
 use App\Http\Controllers\KhutbahController;
 use App\Http\Controllers\MutabaahController;
 use App\Http\Controllers\UserController;
@@ -55,6 +56,16 @@ Route::controller(EmasController::class)->group(function () {
     Route::get('/emas/edit/{id}', 'edit')->name('editEmas');
     Route::put('/emas/update/{id}', 'update')->name('updateEmas');
     Route::delete('/emas/delete/{id}', 'destroy')->name('deleteEmas');
+});
+
+// kategori
+Route::controller(KategoriController::class)->group(function () {
+    Route::get('/kategori', 'index')->name('allKat');
+    Route::get('/kategori/store', 'create')->name('toFormKat');
+    Route::post('/kategori/store', 'store')->name('storeKat');
+    // Route::get('/kategori/edit/{id}', 'edit')->name('editKat');
+    // Route::put('/kategori/update/{id}', 'update')->name('updateKat');
+    Route::delete('/kategori/delete/{id}', 'destroy')->name('deleteKat');
 });
 
 // berita

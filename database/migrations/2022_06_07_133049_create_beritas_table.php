@@ -16,6 +16,7 @@ return new class extends Migration
         Schema::create('beritas', function (Blueprint $table) {
             $table->id();
             $table->longText('judul');
+            $table->foreignId('kategori_id');
             $table->longText('isi');
             $table->text('gambar');
             $table->timestamps();

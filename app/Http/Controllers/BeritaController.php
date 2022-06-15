@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Berita;
+use App\Models\Kategori;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use RealRashid\SweetAlert\Facades\Alert;
@@ -21,7 +22,8 @@ class BeritaController extends Controller
     public function toFormBerita()
     {
         $user = Auth::user();
-        return view('content.berita.add', compact('user'));
+        $kategori = Kategori::all();
+        return view('content.berita.add', compact('user', 'kategori'));
     }
 
     public function store(Request $request)
@@ -34,12 +36,14 @@ class BeritaController extends Controller
         ]);
         if ($request->gambar) {
             Berita::create([
+                'kategori_id' => $request->kategori_id,
                 'judul' => $request->judul,
                 'isi' => $request->isi,
                 'gambar' => $request->file('gambar')->store('image-data')
             ]);
         } else {
             Berita::create([
+                'kategori_id' => $request->kategori_id,
                 'judul' => $request->judul,
                 'isi' => $request->isi,
             ]);
@@ -54,8 +58,9 @@ class BeritaController extends Controller
     public function toFormEdit($id)
     {
         $user = Auth::user();
+        $kategori = Kategori::all();
         $berita = Berita::find($id);
-        return view('content.berita.edit', compact('user', 'berita'));
+        return view('content.berita.edit', compact('user', 'berita', 'kategori'));
     }
 
     public function updateBerita(Request $request, $id)
@@ -63,19 +68,22 @@ class BeritaController extends Controller
         $this->validate($request, [
             'judul' => 'required',
             'isi' => 'required',
-            'gambar' => 'required|image|mimes:jpg,png,jpeg,gif,svg'
+            'kategori_id' => 'required',
+            'gambar' => 'image|mimes:jpg,png,jpeg,gif,svg'
         ]);
         $berita = Berita::find($id);
         if ($request->gambar) {
             $berita->update([
                 'judul' => $request->judul,
                 'isi' => $request->isi,
+                'kategori_id' => $request->kategori_id,
                 'gambar' => $request->file('gambar')->store('image-data')
             ]);
         } else {
             $berita->update([
                 'judul' => $request->judul,
                 'isi' => $request->isi,
+                'kategori_id' => $request->kategori_id,
             ]);
         }
 

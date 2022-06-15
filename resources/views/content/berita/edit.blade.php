@@ -47,8 +47,22 @@
                   <label for="inputEmail" class="col-sm-2 col-form-label">Isi Berita</label>
                   <div class="col-sm-10">
                      {{-- <div id="editor">This is some sample content.</div> --}}
-                    <textarea id="editor" type="text" name="isi" value="{{!!$berita->isi!!}}" class="form-control"></textarea>
+                    <textarea id="editor" type="text" name="isi" value="{!!$berita->isi!!}" class="form-control">{!!$berita->isi!!}</textarea>
                   </div>
+                </div>
+                   <div class="row mb-3">
+                   <label class="col-sm-2 col-form-label">kategori</label>                                      
+                <div class="col-md-10">
+                     <select
+                        class="@error('kategori_id') is invalid @enderror form-control input-fixed"
+                        name="kategori_id">
+                        <option value="{{ $berita->kategori_id }}">Select kategori</option>
+                         @foreach ($kategori as $k)
+                            <option value="{{ $k->id }}">
+                                {{ $k->nama_kategori }}</option>
+                      @endforeach
+                     </select>
+                 </div>
                 </div>
                 <div class="row mb-3">
                   <label for="inputEmail" class="col-sm-2 col-form-label">Gambar Berita</label>

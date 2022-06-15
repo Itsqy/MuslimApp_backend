@@ -13,12 +13,9 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('khutbahs', function (Blueprint $table) {
+        Schema::create('kategoris', function (Blueprint $table) {
             $table->id();
-            $table->longText('judul');
-            $table->string('kategori_id');
-            $table->longText('isi');
-            $table->longText('pemateri');
+            $table->string('nama_kategori');
             $table->timestamps();
         });
     }
@@ -30,6 +27,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('khutbahs');
+        Schema::dropIfExists('kategoris');
     }
 };
