@@ -5,10 +5,9 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\API\AuthController;
 use App\Http\Controllers\API\EmasController;
 use App\Http\Controllers\API\BeritaController;
+use App\Http\Controllers\API\DoaDzikirController;
 use App\Http\Controllers\API\MutabaahController;
-use App\Http\Controllers\API\ApiController;
-use App\Http\Controllers\API\KhutbahController as APIKhutbahController;
-use App\Http\Controllers\KhutbahController;
+use App\Http\Controllers\API\KhutbahController;
 use App\Models\Khutbah;
 
 /*
@@ -22,18 +21,6 @@ use App\Models\Khutbah;
 |
 */
 
-// Route::post('login', [ApiController::class, 'authenticate']);
-// Route::post('register', [ApiController::class, 'register']);
-// Route::group(['middleware' => ['jwt.verify']], function () {
-//     Route::get('logout', [ApiController::class, 'logout']);
-//     Route::get('get_user', [ApiController::class, 'get_user']);
-//     Route::get('products', [ProductController::class, 'index']);
-//     Route::get('products/{id}', [ProductController::class, 'show']);
-//     Route::post('create', [ProductController::class, 'store']);
-//     Route::put('update/{product}',  [ProductController::class, 'update']);
-//     Route::delete('delete/{product}',  [ProductController::class, 'destroy']);
-// });
-
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
@@ -45,8 +32,14 @@ Route::controller(AuthController::class)->group(function () {
 
 
 // emas
-Route::get('/allEmas', [EmasController::class, 'getEmas'])->middleware('auth');
-
+Route::controller(EmasController::class)->group(
+    function () {
+        Route::get('/allEmas', 'getEmas')->middleware('auth');
+        Route::post('/storeEmas', 'storeEmas')->middleware();
+        Route::post('/updateEmas/{emas_id}', 'updateEmas')->middleware();
+        Route::delete('/deleteEmas/{emas_id}', 'deleteEmas')->middleware();
+    }
+);
 // mutabaah
 Route::controller(MutabaahController::class)->group(function () {
     Route::get('/allMutabaah', 'getMutabaah')->middleware();
@@ -58,9 +51,23 @@ Route::controller(MutabaahController::class)->group(function () {
 Route::controller(BeritaController::class)->group(function () {
     Route::get('/allBerita', 'getBerita')->middleware();
     Route::get('/allBerita/{id}', 'detailBerita')->middleware();
+    Route::post('/storeBerita', 'storeBerita')->middleware();
+    Route::post('/updateBerita/{berita_id}', 'updateBerita')->middleware();
+    Route::delete('/deleteBerita/{berita_id}', 'deleteBerita')->middleware();
 });
 
 // khutbah
-Route::controller(APIKhutbahController::class)->group(function () {
+Route::controller(KhutbahController::class)->group(function () {
     Route::get('/allKhutbah', 'getKhutbah   ');
+    Route::post('/storeKhutbah', 'storeKhutbah')->middleware();
+    Route::post('/updateKhutbah/{khutbah_id}', 'updateKhutbah')->middleware();
+    Route::delete('/deleteKhutbah/{khutbah_id}', 'deleteKhutbah')->middleware();
+});
+
+// Doa dan Dzikir
+Route::controller(DoaDzikirController::class)->group(function () {
+    Route::get('/allDzikir', 'getDzikir');
+    Route::post('/storeDzikir', 'storeDzikir')->middleware();
+    Route::post('/updateDzikir/{dzikir_id}', 'updateDzikir')->middleware();
+    Route::delete('/deleteDzikir/{dzikir_id}', 'deleteDzikir')->middleware();
 });

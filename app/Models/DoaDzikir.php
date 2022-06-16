@@ -5,17 +5,12 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Kategori extends Model
+class DoaDzikir extends Model
 {
     use HasFactory;
 
     protected $fillable = [
-        'nama_kategori'
+        'judul',
+        'isi',
     ];
-
-
-    public function berita()
-    {
-        return $this->hasMany(Berita::class, 'kategori_id', 'nama_kategori');
-    }
 }

@@ -16,7 +16,6 @@ return new class extends Migration
         Schema::create('khutbahs', function (Blueprint $table) {
             $table->id();
             $table->longText('judul');
-            $table->string('kategori_id');
             $table->longText('isi');
             $table->longText('pemateri');
             $table->timestamps();

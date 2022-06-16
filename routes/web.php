@@ -5,6 +5,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\API\DoaController;
 use App\Http\Controllers\BeritaController;
+use App\Http\Controllers\DoaDzikirController;
 use App\Http\Controllers\EmasController;
 use App\Http\Controllers\KategoriController;
 use App\Http\Controllers\KhutbahController;
@@ -87,4 +88,16 @@ Route::controller(KhutbahController::class)->group(function () {
     Route::get('/Khutbah/edit/{id}', 'toFormEdit')->name('editKhutbah');
     Route::put('/Khutbah/update/{id}', 'updateKhutbah')->name('updateKhutbah');
     Route::delete('/Khutbah/delete/{id}', 'deleteKhutbah')->name('deleteKhutbah');
+});
+
+
+
+// khutbah
+Route::controller(DoaDzikirController::class)->group(function () {
+    Route::get('/dzikir', 'getDzikir')->name('allDzikir');
+    Route::get('/Dzikir/create', 'toFormDzikir')->name('toFormDzikir');
+    Route::post('/Dzikir/store', 'storeDzikir')->name('storeDzikir');
+    Route::get('/Dzikir/edit/{id}', 'toFormEdit')->name('editDzikir');
+    Route::put('/Dzikir/update/{id}', 'updateDzikir')->name('updateDzikir');
+    Route::delete('/Dzikir/delete/{id}', 'deleteDzikir')->name('deleteDzikir');
 });

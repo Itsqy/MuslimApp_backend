@@ -3,38 +3,41 @@
 namespace App\Http\Controllers\API;
 
 use App\Http\Controllers\Controller;
-use App\Models\Khutbah;
+use App\Models\DoaDzikir;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use Symfony\Component\HttpFoundation\Response;
 
-class KhutbahController extends Controller
+class DoaDzikirController extends Controller
 {
 
-    public function getKhutbah()
+    public function getDzikir()
     {
-        $khutbah = Khutbah::all();
+        $dzikir = DoaDzikir::all();
 
-        return response()->json([
-            'status' => 1,
-            'pesan' => "data berhasil di get",
-            'khutbah' => $khutbah,
-        ]);
+        if (!$dzikir)
+            return $this->responError(0, "data tidak tersedia");
+        else
+            return response()->json([
+                'status' => 1,
+                'pesan' => "data berhasil di get",
+                'dzikir' => $dzikir,
+            ]);
     }
 
-    public function storeKhutbah(Request $request)
+    public function storeDzikir(Request $request)
     {
-        $newKhutbah = new Khutbah();
+        $newDzikir = new DoaDzikir();
         $pesan = [
             'judul.required'  => 'judul wajib diisi',
             'isi.required'      => 'isi wajib diisi',
-            'pemateri.required'    => 'pemateri wajib diisi',
+
         ];
         // validasi
         $validasi = Validator::make($request->all(), [
             'judul'    => "required",
             'isi'        => "required",
-            'pemateri'     => "required",
+
 
         ], $pesan);
 
@@ -43,38 +46,38 @@ class KhutbahController extends Controller
             return $this->responError(0, $val[0]);
         }
         // store data
-        $newKhutbah->judul = $request->judul;
-        $newKhutbah->isi = $request->isi;
-        $newKhutbah->pemateri = $request->pemateri;
-        $newKhutbah->save();
+        $newDzikir->judul = $request->judul;
+        $newDzikir->isi = $request->isi;
+
+        $newDzikir->save();
 
         return response()->json([
             'status' => 1,
             'pesan' => "data berhasil ditambahkan",
-            'data' => $newKhutbah,
+            'data' => $newDzikir,
 
         ], Response::HTTP_OK);
     }
 
     // kalo di update nya ada store image , methode nya pake post jangan pake put
-    public function updateKhutbah(Request $request, $khutbah_id)
+    public function updateDzikir(Request $request, $dzikir_id)
     {
 
-        $getKhutbah = Khutbah::where('id', $khutbah_id)->first();
-        if (!$getKhutbah) {
+        $getDzikir = DoaDzikir::where('id', $dzikir_id)->first();
+        if (!$getDzikir) {
             return $this->responError(0, "data tidak ditemukan");
         }
 
         $pesan = [
             'judul.required'  => 'judul wajib diisi',
             'isi.required'      => 'isi wajib diisi',
-            'pemateri.required'    => 'pemateri wajib diisi',
+
         ];
 
         $validasi = Validator::make($request->all(), [
             'judul'    => "required",
             'isi'        => "required",
-            'pemateri'     => "required",
+
         ], $pesan);
 
         if ($validasi->fails()) {
@@ -82,29 +85,29 @@ class KhutbahController extends Controller
             return $this->responError(0, $val[0]);
         }
 
-        $getKhutbah->update([
+        $getDzikir->update([
             'judul' => $request->judul,
             'isi' => $request->isi,
-            'pemateri' => $request->pemateri,
+
         ]);
 
 
         return response()->json([
             'status' => 1,
             'pesan' => "data berhasil diupdate",
-            'data' => $getKhutbah,
+            'data' => $getDzikir,
         ], Response::HTTP_OK);
     }
 
 
-    public function deleteKhutbah($khutbah_id)
+    public function deleteDzikir($Dzikir_id)
     {
 
-        $getKhutbah = Khutbah::find($khutbah_id);
-        if (!$getKhutbah) {
+        $getDzikir = DoaDzikir::find($Dzikir_id);
+        if (!$getDzikir) {
             return $this->responError(0, "data tidak ditemukan");
         }
-        $getKhutbah->delete();
+        $getDzikir->delete();
 
         return response()->json([
             'status' => 1,

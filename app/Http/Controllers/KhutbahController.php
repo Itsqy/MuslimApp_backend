@@ -34,7 +34,7 @@ class KhutbahController extends Controller
             'isi' => $request->isi,
             'pemateri' => $request->pemateri,
         ]);
-        Alert::success('Congrats', "berhasil menambhakan data");
+        Alert::success('Congrats', "berhasil menambahkan data");
         return redirect('khutbah');
     }
 

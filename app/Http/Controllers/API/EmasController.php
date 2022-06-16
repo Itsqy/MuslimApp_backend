@@ -5,6 +5,7 @@ namespace App\Http\Controllers\API;
 use App\Http\Controllers\Controller;
 use App\Models\Emas;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Validator;
 use Symfony\Component\HttpFoundation\Response;
 
 class EmasController extends Controller
@@ -20,6 +21,79 @@ class EmasController extends Controller
             'status' => 1,
             'pesan' => "Berhasil di GET",
             'emas' => $emas
+        ], Response::HTTP_OK);
+    }
+
+
+    public function storeEmas(Request $request)
+    {
+
+        $newEMas = new Emas();
+        $pesan = [
+            'hargaemas.required' => 'hargaemas wajib diisi',
+            'hargaemas.number' => 'emas harus angka saja'
+        ];
+
+        $validasi = Validator::make($request->all(), [
+            'hargaemas' => "required|integer"
+        ], $pesan);
+
+        if ($validasi->fails()) {
+            $val = $validasi->errors()->all();
+            return $this->responError(0, $val[0]);
+        }
+
+        $newEMas->hargaemas = $request->hargaemas;
+        $newEMas->save();
+
+        return response()->json([
+            'status' => 1,
+            'pesan' => "data berhasil ditambahkan",
+            'data' => $newEMas,
+        ], Response::HTTP_OK);
+    }
+
+    public function updateEmas(Request $request, $emas_id)
+    {
+
+        $newEMas = Emas::where('id', $emas_id)->first();
+        $pesan = [
+            'hargaemas.required' => 'hargaemas wajib diisi',
+            'hargaemas.number' => 'emas harus angka saja'
+        ];
+
+        $validasi = Validator::make($request->all(), [
+            'hargaemas' => "required|integer"
+        ], $pesan);
+
+        if ($validasi->fails()) {
+            $val = $validasi->errors()->all();
+            return $this->responError(0, $val[0]);
+        }
+
+        $newEMas->update([
+            'hargaemas' => $request->hargaemas
+        ]);
+
+        return response()->json([
+            'status' => 1,
+            'pesan' => "data berhasil diupdate",
+            'data' => $newEMas,
+        ], Response::HTTP_OK);
+    }
+
+    public function deleteEmas($berita_id)
+    {
+
+        $getEmas = Emas::find($berita_id);
+        if (!$getEmas) {
+            return $this->responError(0, "data tidak ditemukan");
+        }
+        $getEmas->delete();
+
+        return response()->json([
+            'status' => 1,
+            'pesan' => "data berhasil dihapus",
         ], Response::HTTP_OK);
     }
 
