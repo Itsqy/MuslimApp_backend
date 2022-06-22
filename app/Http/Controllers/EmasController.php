@@ -45,7 +45,7 @@ class EmasController extends Controller
     public function store(Request $request)
     {
         $this->validate($request, [
-            'emas' => 'required',
+            'hargaemas' => 'required',
 
         ]);
         Emas::create([
@@ -89,7 +89,7 @@ class EmasController extends Controller
     public function update(Request $request, $id)
     {
         $this->validate($request, [
-            'emas' => 'required',
+            'hargaemas' => 'required',
 
         ]);
         $emas = Emas::find($id);

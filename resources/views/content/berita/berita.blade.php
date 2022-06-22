@@ -22,7 +22,7 @@
                             <th scope="col">Judul</th>
                             <th scope="col">Isi Berita </th>
                             <th scope="col">Tanggal</th>
-                            <th scope="col">kategori</th>
+                            <th scope="col">tag</th>
                             <th scope="col">Action</th>
 
                         </tr>
@@ -38,9 +38,9 @@
                                 <td><img src="{{ url('/storage', $d->gambar) }}"
                                         style="max-width: 100px !important; border-radius:5px;"></td>
                                 <td>{{ $d->judul }}</td>
-                                <td><a href="">{!! substr($d->isi, 0, 70) !!}...</a></td>
+                                <td><a>{!! substr($d->isi, 0, 70) !!}...</a></td>
                                 <td>{{ $d->created_at }}</td>
-                                <td>{{ $d->kategori_id }}</td>
+                                <td>{{ $d->tag }}</td>
                                 <td><a href="{{ route('editBerita', $d->id) }}"><i class="bi bi-pencil"></i></a>
 
 

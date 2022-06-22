@@ -30,20 +30,21 @@ class BeritaController extends Controller
     {
 
         $this->validate($request, [
+            'tag' => 'required',
             'judul' => 'required',
             'isi' => 'required',
             'gambar' => 'required|image|mimes:jpg,png,jpeg,gif,svg'
         ]);
         if ($request->gambar) {
             Berita::create([
-                'kategori_id' => $request->kategori_id,
+                'tag' => $request->tag,
                 'judul' => $request->judul,
                 'isi' => $request->isi,
                 'gambar' => $request->file('gambar')->store('image-data')
             ]);
         } else {
             Berita::create([
-                'kategori_id' => $request->kategori_id,
+                'tag' => $request->tag,
                 'judul' => $request->judul,
                 'isi' => $request->isi,
             ]);
@@ -68,7 +69,7 @@ class BeritaController extends Controller
         $this->validate($request, [
             'judul' => 'required',
             'isi' => 'required',
-            'kategori_id' => 'required',
+            'tag' => 'required',
             'gambar' => 'image|mimes:jpg,png,jpeg,gif,svg'
         ]);
         $berita = Berita::find($id);
@@ -76,14 +77,14 @@ class BeritaController extends Controller
             $berita->update([
                 'judul' => $request->judul,
                 'isi' => $request->isi,
-                'kategori_id' => $request->kategori_id,
+                'tag' => $request->tag,
                 'gambar' => $request->file('gambar')->store('image-data')
             ]);
         } else {
             $berita->update([
                 'judul' => $request->judul,
                 'isi' => $request->isi,
-                'kategori_id' => $request->kategori_id,
+                'tag' => $request->tag,
             ]);
         }
 

@@ -8,6 +8,7 @@ use App\Http\Controllers\API\BeritaController;
 use App\Http\Controllers\API\DoaDzikirController;
 use App\Http\Controllers\API\MutabaahController;
 use App\Http\Controllers\API\KhutbahController;
+use App\Http\Controllers\API\UserController;
 use App\Models\Khutbah;
 
 /*
@@ -30,44 +31,56 @@ Route::controller(AuthController::class)->group(function () {
     Route::post('/login', 'login');
 });
 
+// user
+Route::controller(UserController::class)->group(function () {
+    Route::post('/updateUser/{user_id}', 'updateUser');
+    Route::get('/allUser', 'getAllUser');
+    Route::get('/resetPass/{id}', 'resetPass');
+    Route::post('/editPass/{id}', 'storePass');
+    Route::post('/storeGambar/{id}', 'storeGambar');
+});
+
 
 // emas
 Route::controller(EmasController::class)->group(
     function () {
-        Route::get('/allEmas', 'getEmas')->middleware('auth');
-        Route::post('/storeEmas', 'storeEmas')->middleware();
-        Route::post('/updateEmas/{emas_id}', 'updateEmas')->middleware();
-        Route::delete('/deleteEmas/{emas_id}', 'deleteEmas')->middleware();
+        Route::get('/allEmas', 'getEmas');
+        Route::post('/storeEmas', 'storeEmas');
+        Route::post('/updateEmas/{emas_id}', 'updateEmas');
+        Route::delete('/deleteEmas/{emas_id}', 'deleteEmas');
     }
 );
 // mutabaah
 Route::controller(MutabaahController::class)->group(function () {
-    Route::get('/allMutabaah', 'getMutabaah')->middleware();
-    Route::get('/allMutabaah/{id}', 'detailMutabaah')->middleware();
-    Route::post('/storeMutabaah', 'storeMutabaah')->middleware('auth:sanctum');
+    Route::get('/allMutabaah', 'getMutabaah');
+    Route::get('/allMutabaah/{id}', 'detailMutabaah');
+    Route::post('/storeMutabaah', 'storeMutabaah');
+    Route::post('/updateMutabaah/{id}', 'updateMutabaah');
+    Route::delete('/deleteMutabaah/{id}', 'deleteMutabaah');
 });
 
 // berita
 Route::controller(BeritaController::class)->group(function () {
-    Route::get('/allBerita', 'getBerita')->middleware();
-    Route::get('/allBerita/{id}', 'detailBerita')->middleware();
-    Route::post('/storeBerita', 'storeBerita')->middleware();
-    Route::post('/updateBerita/{berita_id}', 'updateBerita')->middleware();
-    Route::delete('/deleteBerita/{berita_id}', 'deleteBerita')->middleware();
+    Route::get('/allBerita', 'getBerita');
+    Route::get('/allBeritadanKhutbah', 'getBeritadanKhutbah');
+    Route::get('/allBerita/{id}', 'detailBerita');
+    Route::post('/storeBerita', 'storeBerita');
+    Route::post('/updateBerita/{berita_id}', 'updateBerita');
+    Route::delete('/deleteBerita/{berita_id}', 'deleteBerita');
 });
 
 // khutbah
 Route::controller(KhutbahController::class)->group(function () {
-    Route::get('/allKhutbah', 'getKhutbah   ');
-    Route::post('/storeKhutbah', 'storeKhutbah')->middleware();
-    Route::post('/updateKhutbah/{khutbah_id}', 'updateKhutbah')->middleware();
-    Route::delete('/deleteKhutbah/{khutbah_id}', 'deleteKhutbah')->middleware();
+    Route::get('/allKhutbah', 'getKhutbah');
+    Route::post('/storeKhutbah', 'storeKhutbah');
+    Route::post('/updateKhutbah/{khutbah_id}', 'updateKhutbah');
+    Route::delete('/deleteKhutbah/{khutbah_id}', 'deleteKhutbah');
 });
 
 // Doa dan Dzikir
 Route::controller(DoaDzikirController::class)->group(function () {
     Route::get('/allDzikir', 'getDzikir');
-    Route::post('/storeDzikir', 'storeDzikir')->middleware();
-    Route::post('/updateDzikir/{dzikir_id}', 'updateDzikir')->middleware();
-    Route::delete('/deleteDzikir/{dzikir_id}', 'deleteDzikir')->middleware();
+    Route::post('/storeDzikir', 'storeDzikir');
+    Route::post('/updateDzikir/{dzikir_id}', 'updateDzikir');
+    Route::delete('/deleteDzikir/{dzikir_id}', 'deleteDzikir');
 });

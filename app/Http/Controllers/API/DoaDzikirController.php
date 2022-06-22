@@ -100,10 +100,10 @@ class DoaDzikirController extends Controller
     }
 
 
-    public function deleteDzikir($Dzikir_id)
+    public function deleteDzikir($dzikir_id)
     {
 
-        $getDzikir = DoaDzikir::find($Dzikir_id);
+        $getDzikir = DoaDzikir::find($dzikir_id);
         if (!$getDzikir) {
             return $this->responError(0, "data tidak ditemukan");
         }

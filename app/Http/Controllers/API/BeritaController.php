@@ -14,16 +14,16 @@ class BeritaController extends Controller
 
     public function getBeritadanKhutbah()
     {
-        $ibadah = Berita::all();
-        $khutbah = Khutbah::all();
-        $berita = Berita::all();
+
+        $khutbah = Khutbah::orderBy('id', 'desc')->paginate(2);
+        $berita = Berita::orderBy('id', 'desc')->paginate(2);
         if (!$berita)
             return $this->responError(0, "berita tidak tersedia");
         return response()->json([
             'status' => 1,
             'pesan' => "data berhasil di get",
             'result' => [
-                'ibadah' => $ibadah,
+                'berita' => $berita,
                 'khutbah' => $khutbah,
             ],
 
@@ -47,7 +47,7 @@ class BeritaController extends Controller
     public function getBerita()
     {
 
-        $berita = Berita::orderBy('id', 'desc')->paginate(3);
+        $berita = Berita::all();
         if (!$berita) {
             return $this->responError(0, "berita tidak tersedia");
         }
@@ -67,13 +67,13 @@ class BeritaController extends Controller
             'judul.required'  => 'judul wajib diisi',
             'isi.required'      => 'isi wajib diisi',
             'gambar.required'        => 'gambar wajib diisi',
-            'kategori_id.required'    => 'kategori wajib diisi',
+            'tag.required'    => 'kategori wajib diisi',
         ];
         // validasi
         $validasi = Validator::make($request->all(), [
             'judul'    => "required",
             'isi'        => "required",
-            'kategori_id'     => "required",
+            'tag'     => "required",
             'gambar'     => "required",
         ], $pesan);
 
@@ -84,7 +84,7 @@ class BeritaController extends Controller
         // store data
         $newBerita->judul = $request->judul;
         $newBerita->isi = $request->isi;
-        $newBerita->kategori_id = $request->kategori_id;
+        $newBerita->tag = $request->tag;
         $newBerita->gambar = $request->file('gambar')->store('image-data');
         $newBerita->save();
 
@@ -110,14 +110,14 @@ class BeritaController extends Controller
             'isi.required'      => 'isi wajib diisi',
             'gambar.required'        => 'gambar wajib diisi',
             'gambar.mimes'        => 'gambar wajib png atau jpg',
-            'kategori_id.required'    => 'kategori wajib diisi',
+            'tag.required'    => 'kategori wajib diisi',
         ];
 
         $validasi = Validator::make($request->all(), [
             'judul'    => "required",
             'isi'        => "required",
             'gambar'     => "required|mimes:jpg,png",
-            'kategori_id'     => "required",
+            'tag'     => "required",
         ], $pesan);
 
         if ($validasi->fails()) {
@@ -129,7 +129,7 @@ class BeritaController extends Controller
             'judul' => $request->judul,
             'isi' => $request->isi,
             'gambar' => $request->file('gambar')->store('image-data'),
-            'kategori_id' => $request->kategori_id,
+            'tag' => $request->tag,
         ]);
 
 

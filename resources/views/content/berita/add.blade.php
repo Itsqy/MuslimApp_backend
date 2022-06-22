@@ -42,32 +42,23 @@
                                 </div>
                             </div>
                             <div class="row mb-3">
+                                <label for="inputText" class="col-sm-2 col-form-label">gambar </label>
+                                <div class="col-sm-10">
+                                    <input type="file" name="gambar" value="" class="form-control">
+                                </div>
+                            </div>
+                            <div class="row mb-3">
                                 <label for="inputEmail" class="col-sm-2 col-form-label">Isi Berita</label>
                                 <div class="col-sm-10">
                                     {{-- <div id="editor">This is some sample content.</div> --}}
                                     <textarea id="editor" type="text" name="isi" value="" class="form-control"></textarea>
                                 </div>
                             </div>
-                            {{-- start dropdown --}}
                             <div class="row mb-3">
-                                <label class="col-sm-2 col-form-label">kategori</label>
-                                <div class="col-md-10">
-                                    <select class="@error('kategori_id') is invalid @enderror form-control input-fixed"
-                                        name="kategori_id">
-                                        <option value="">Select kategori</option>
-                                        @foreach ($kategori as $k)
-                                            <option value="{{ $k->nama_kategori }}">
-                                                {{ $k->nama_kategori }}</option>
-                                        @endforeach
-                                    </select>
-                                </div>
-                            </div>
-                            {{-- end dropdown --}}
-                            <div class="row mb-3">
-                                <label for="inputEmail" class="col-sm-2 col-form-label">Gambar Berita</label>
+                                <label for="inputEmail" class="col-sm-2 col-form-label">Tag</label>
                                 <div class="col-sm-10">
                                     {{-- <div id="editor">This is some sample content.</div> --}}
-                                    <input type="file" name="gambar" value="" class="form-control">
+                                    <input readonly type="text" name="tag" value="Berita" class="form-control">
                                 </div>
                             </div>
                             <div class="row mb-3">

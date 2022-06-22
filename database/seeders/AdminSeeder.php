@@ -16,11 +16,18 @@ class AdminSeeder extends Seeder
      */
     public function run()
     {
+        // $admin = new User();
+        // $admin->name = 'Admin';
+        // $admin->email = 'admin@gmail.com';
+        // $admin->role = 'admin';
+        // $admin->password = bcrypt('admin');
+        // $admin->save();
+
         $user = new User();
-        $user->name = 'Admin';
-        $user->email = 'admin@gmail.com';
-        $user->role = 'admin';
-        $user->password = bcrypt('admin');
+        $user->name = 'user';
+        $user->email = 'user@gmail.com';
+        $user->role = 'user';
+        $user->password = bcrypt('user');
         $user->save();
     }
 }

@@ -12,6 +12,7 @@ class Khutbah extends Model
     protected $fillable = [
         'judul',
         'isi',
+        'tag',
         'pemateri'
     ];
 }

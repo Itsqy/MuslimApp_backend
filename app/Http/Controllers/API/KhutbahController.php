@@ -29,12 +29,14 @@ class KhutbahController extends Controller
             'judul.required'  => 'judul wajib diisi',
             'isi.required'      => 'isi wajib diisi',
             'pemateri.required'    => 'pemateri wajib diisi',
+            'tag.required'    => 'tag wajib diisi',
         ];
         // validasi
         $validasi = Validator::make($request->all(), [
             'judul'    => "required",
             'isi'        => "required",
             'pemateri'     => "required",
+            'tag'     => "required",
 
         ], $pesan);
 
@@ -46,6 +48,7 @@ class KhutbahController extends Controller
         $newKhutbah->judul = $request->judul;
         $newKhutbah->isi = $request->isi;
         $newKhutbah->pemateri = $request->pemateri;
+        $newKhutbah->tag = $request->tag;
         $newKhutbah->save();
 
         return response()->json([
@@ -69,12 +72,14 @@ class KhutbahController extends Controller
             'judul.required'  => 'judul wajib diisi',
             'isi.required'      => 'isi wajib diisi',
             'pemateri.required'    => 'pemateri wajib diisi',
+            'tag.required'    => 'tag wajib diisi',
         ];
 
         $validasi = Validator::make($request->all(), [
             'judul'    => "required",
             'isi'        => "required",
             'pemateri'     => "required",
+            'tag'     => "required",
         ], $pesan);
 
         if ($validasi->fails()) {
@@ -86,6 +91,7 @@ class KhutbahController extends Controller
             'judul' => $request->judul,
             'isi' => $request->isi,
             'pemateri' => $request->pemateri,
+            'tag' => $request->tag,
         ]);
 
 

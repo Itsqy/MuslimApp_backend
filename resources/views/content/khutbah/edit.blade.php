@@ -50,6 +50,12 @@
                   </div>
                 </div>
                 <div class="row mb-3">
+                  <label for="inputText" class="col-sm-2 col-form-label">Tag</label>
+                  <div class="col-sm-10">
+                    <input type="text" name="tag" readonly value="khutbah" class="form-control">
+                  </div>
+                </div>
+                <div class="row mb-3">
                   <label for="inputEmail" class="col-sm-2 col-form-label">Isi Khutbah</label>
                   <div class="col-sm-10">
                      {{-- <div id="editor">This is some sample content.</div> --}}

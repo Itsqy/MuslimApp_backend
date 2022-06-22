@@ -27,12 +27,14 @@ class KhutbahController extends Controller
         $this->validate($request, [
             'judul' => 'required',
             'isi' => 'required',
-            'gambar' => 'required'
+            'pemateri' => 'required',
+            'tag' => 'required'
         ]);
         Khutbah::create([
             'judul' => $request->judul,
             'isi' => $request->isi,
             'pemateri' => $request->pemateri,
+            'tag' => $request->tag,
         ]);
         Alert::success('Congrats', "berhasil menambahkan data");
         return redirect('khutbah');
@@ -53,13 +55,15 @@ class KhutbahController extends Controller
         $this->validate($request, [
             'judul' => 'required',
             'isi' => 'required',
-            'pemateri' => 'required'
+            'pemateri' => 'required',
+            'tag' => 'required'
         ]);
         $khutbah = Khutbah::find($id);
         $khutbah->update([
             'judul' => $request->judul,
             'isi' => $request->isi,
             'pemateri' => $request->pemateri,
+            'tag' => $request->pemateri,
         ]);
         Alert::success('Congrats', "berhasil mengupdate data");
 

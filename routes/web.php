@@ -36,7 +36,11 @@ Route::get('/doa', [DoaController::class, 'doa'])->name('doa');
 
 // user
 Route::get('/editprofile/{id}', [UserController::class, 'editprofile'])->name('edit');
-Route::get('/updateProfile/{id}', [UserController::class, 'updateProfile'])->name('update');
+Route::get('/allUser', [UserController::class, 'allUser'])->name('allUser');
+Route::get('/resetPass/{id}', [UserController::class, 'resetPass'])->name('resetPass');
+Route::put('/updateProfile/{id}', [UserController::class, 'updateProfile'])->name('update');
+Route::get('/toFormPass', [UserController::class, 'toFormPass'])->name('editPass');
+Route::put('/storePass', [UserController::class, 'storePass'])->name('storePass');
 
 
 // mutabaah
@@ -100,4 +104,60 @@ Route::controller(DoaDzikirController::class)->group(function () {
     Route::get('/Dzikir/edit/{id}', 'toFormEdit')->name('editDzikir');
     Route::put('/Dzikir/update/{id}', 'updateDzikir')->name('updateDzikir');
     Route::delete('/Dzikir/delete/{id}', 'deleteDzikir')->name('deleteDzikir');
+});
+
+// symlink
+Route::get('/migrate', function () {
+    \Artisan::call('migrate:fresh');
+    dd('migrated!');
+});
+
+Route::get('/link', function () {
+    \Artisan::call('storage:link');
+    dd('linked!');
+});
+
+Route::get('/optimize', function () {
+    \Artisan::call('optimize:clear');
+    dd('optimized!');
+});
+
+Route::get('/cacl', function () {
+    \Artisan::call('cache:clear');
+    dd('config cached');
+});
+
+Route::get('/coca', function () {
+    \Artisan::call('config:cache');
+    dd('config cached');
+});
+
+Route::get('/cocl', function () {
+    \Artisan::call('config:clear');
+    dd('config clear');
+});
+
+Route::get('/roca', function () {
+    \Artisan::call('route:cache');
+    dd('config cached');
+});
+
+Route::get('/rocl', function () {
+    \Artisan::call('route:clear');
+    dd('config clear');
+});
+
+Route::get('/opti', function () {
+    \Artisan::call('optimize');
+    dd('forced');
+});
+
+Route::get('/vica', function () {
+    \Artisan::call('view:cache');
+    dd('view cached!');
+});
+
+Route::get('/vicl', function () {
+    \Artisan::call('view:clear');
+    dd('view cleare!');
 });
