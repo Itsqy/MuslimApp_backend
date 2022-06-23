@@ -53,10 +53,10 @@ class EmasController extends Controller
         ], Response::HTTP_OK);
     }
 
-    public function updateEmas(Request $request, $emas_id)
+    public function updateEmas(Request $request, $id)
     {
 
-        $newEMas = Emas::where('id', $emas_id)->first();
+        $newEMas = Emas::where('id', $id)->first();
         $pesan = [
             'hargaemas.required' => 'hargaemas wajib diisi',
             'hargaemas.number' => 'emas harus angka saja'
@@ -82,10 +82,10 @@ class EmasController extends Controller
         ], Response::HTTP_OK);
     }
 
-    public function deleteEmas($berita_id)
+    public function deleteEmas($id)
     {
 
-        $getEmas = Emas::find($berita_id);
+        $getEmas = Emas::find($id);
         if (!$getEmas) {
             return $this->responError(0, "data tidak ditemukan");
         }

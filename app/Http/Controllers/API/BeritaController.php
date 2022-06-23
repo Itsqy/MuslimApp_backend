@@ -97,10 +97,10 @@ class BeritaController extends Controller
     }
 
     // kalo di update nya ada store image , methode nya pake post jangan pake put
-    public function updateBerita(Request $request, $berita_id)
+    public function updateBerita(Request $request, $id)
     {
 
-        $getBerita = Berita::where('id', $berita_id)->first();
+        $getBerita = Berita::where('id', $id)->first();
         if (!$getBerita) {
             return $this->responError(0, "data tidak ditemukan");
         }
@@ -141,10 +141,10 @@ class BeritaController extends Controller
     }
 
 
-    public function deleteBerita($berita_id)
+    public function deleteBerita($id)
     {
 
-        $getBerita = Berita::find($berita_id);
+        $getBerita = Berita::find($id);
         if (!$getBerita) {
             return $this->responError(0, "data tidak ditemukan");
         }

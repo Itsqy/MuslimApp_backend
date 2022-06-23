@@ -60,10 +60,10 @@ class KhutbahController extends Controller
     }
 
     // kalo di update nya ada store image , methode nya pake post jangan pake put
-    public function updateKhutbah(Request $request, $khutbah_id)
+    public function updateKhutbah(Request $request, $id)
     {
 
-        $getKhutbah = Khutbah::where('id', $khutbah_id)->first();
+        $getKhutbah = Khutbah::where('id', $id)->first();
         if (!$getKhutbah) {
             return $this->responError(0, "data tidak ditemukan");
         }
@@ -103,10 +103,10 @@ class KhutbahController extends Controller
     }
 
 
-    public function deleteKhutbah($khutbah_id)
+    public function deleteKhutbah($id)
     {
 
-        $getKhutbah = Khutbah::find($khutbah_id);
+        $getKhutbah = Khutbah::find($id);
         if (!$getKhutbah) {
             return $this->responError(0, "data tidak ditemukan");
         }

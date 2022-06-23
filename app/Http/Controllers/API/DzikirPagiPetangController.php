@@ -3,42 +3,43 @@
 namespace App\Http\Controllers\API;
 
 use App\Http\Controllers\Controller;
-use App\Models\DoaDzikir;
+use App\Models\Dzikir;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use Symfony\Component\HttpFoundation\Response;
 
-class DoaDzikirController extends Controller
+class DzikirPagiPetangController extends Controller
 {
-
-    public function getDzikir()
-    {
-        $dzikir = DoaDzikir::all();
-
-        if (!$dzikir)
-            return $this->responError(0, "data tidak tersedia");
-        else
-            return response()->json([
-                'status' => 1,
-                'pesan' => "data berhasil di get",
-                'dzikir' => $dzikir,
-            ]);
+  public function allDzikirpp(){
+    $dzikirpp=Dzikir::all();
+    if(!$dzikirpp){
+        return $this->responError(0,"data tidak tersedia");
     }
 
-    public function storeDzikir(Request $request)
+    return response()->json([
+        'status'=>1,
+        'pesan'=>"data berhasil diget",
+        'data'=>$dzikirpp,
+    ],Response::HTTP_OK);
+  }
+
+  public function storeDzikirpp(Request $request)
     {
-        $newDzikir = new DoaDzikir();
+        $newDzikir = new Dzikir();
         $pesan = [
             'judul.required'  => 'judul wajib diisi',
-            'isi.required'      => 'isi wajib diisi',
-
+            'arab.required'      => 'isi wajib diisi',
+            'latin.required'        => 'gambar wajib diisi',
+            'arti.required'    => 'kategori wajib diisi',
+            'riwayat.required'    => 'kategori wajib diisi',
         ];
         // validasi
         $validasi = Validator::make($request->all(), [
             'judul'    => "required",
-            'isi'        => "required",
-
-
+            'arab'        => "required",
+            'latin'     => "required",
+            'arti'     => "required",
+            'riwayat'     => "required",
         ], $pesan);
 
         if ($validasi->fails()) {
@@ -47,8 +48,10 @@ class DoaDzikirController extends Controller
         }
         // store data
         $newDzikir->judul = $request->judul;
-        $newDzikir->isi = $request->isi;
-
+        $newDzikir->arab = $request->arab;
+        $newDzikir->latin = $request->latin;
+        $newDzikir->arti = $request->arti;
+        $newDzikir->riwayat = $request->riwayat;
         $newDzikir->save();
 
         return response()->json([
@@ -60,24 +63,28 @@ class DoaDzikirController extends Controller
     }
 
     // kalo di update nya ada store image , methode nya pake post jangan pake put
-    public function updateDzikir(Request $request, $id)
+    public function updateDzikirpp(Request $request, $id)
     {
 
-        $getDzikir = DoaDzikir::where('id', $id)->first();
+        $getDzikir = Dzikir::where('id', $id)->first();
         if (!$getDzikir) {
             return $this->responError(0, "data tidak ditemukan");
         }
 
         $pesan = [
             'judul.required'  => 'judul wajib diisi',
-            'isi.required'      => 'isi wajib diisi',
-
+            'arab.required'      => 'isi wajib diisi',
+            'latin.required'        => 'gambar wajib diisi',
+            'arti.required'    => 'kategori wajib diisi',
+            'riwayat.required'    => 'kategori wajib diisi',
         ];
 
         $validasi = Validator::make($request->all(), [
             'judul'    => "required",
-            'isi'        => "required",
-
+            'arab'        => "required",
+            'latin'     => "required",
+            'arti'     => "required",
+            'riwayat'     => "required",
         ], $pesan);
 
         if ($validasi->fails()) {
@@ -87,8 +94,10 @@ class DoaDzikirController extends Controller
 
         $getDzikir->update([
             'judul' => $request->judul,
-            'isi' => $request->isi,
-
+            'arab' => $request->arab,
+            'latin' => $request->latin,
+            'arti' => $request->arti,
+            'riwayat' => $request->riwayat,
         ]);
 
 
@@ -100,10 +109,10 @@ class DoaDzikirController extends Controller
     }
 
 
-    public function deleteDzikir($id)
+    public function deleteDzikirpp($id)
     {
 
-        $getDzikir = DoaDzikir::find($id);
+        $getDzikir = Dzikir::find($id);
         if (!$getDzikir) {
             return $this->responError(0, "data tidak ditemukan");
         }
@@ -114,12 +123,13 @@ class DoaDzikirController extends Controller
             'pesan' => "data berhasil dihapus",
         ], Response::HTTP_OK);
     }
-    public function responError($status, $pesan)
+
+  public function responError($status, $pesan)
     {
 
         return response()->json([
             'status' => $status,
             'pesan' => $pesan,
         ], Response::HTTP_NOT_FOUND);
-    } //
+    }
 }
