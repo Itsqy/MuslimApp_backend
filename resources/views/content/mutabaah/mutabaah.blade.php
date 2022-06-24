@@ -16,6 +16,7 @@
 
               <th scope="col">No</th>
               <th scope="col">Catatan</th>
+              <th scope="col">Milik </th>
               <th scope="col">Deskripsi </th>
               <th scope="col">Tanggal</th>
               <th scope="col">Action</th>
@@ -28,6 +29,7 @@
             <tr>
                 <th scope="row"><a href="#">{{$i++}}</a></th>
                 <td>{{$d->catatan}}</td>
+                <td>{{$d->user->name}}</td>
                 <td>{!!$d->deskripsi!!}</td>
                 <td>{{$d->updated_at}}</td>
                  <td><a href="{{route('toFormEdit',$d->id)}}"><i class="bi bi-pencil"></i></a>

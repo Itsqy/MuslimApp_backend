@@ -9,6 +9,7 @@ use App\Http\Controllers\API\DoaDzikirController;
 use App\Http\Controllers\API\MutabaahController;
 use App\Http\Controllers\API\KhutbahController;
 use App\Http\Controllers\API\UserController;
+use App\Http\Controllers\API\DzikirPagiPetangController;
 use App\Models\Khutbah;
 
 /*
@@ -46,8 +47,8 @@ Route::controller(EmasController::class)->group(
     function () {
         Route::get('/allEmas', 'getEmas');
         Route::post('/storeEmas', 'storeEmas');
-        Route::post('/updateEmas/{emas_id}', 'updateEmas');
-        Route::delete('/deleteEmas/{emas_id}', 'deleteEmas');
+        Route::post('/updateEmas/{id}', 'updateEmas');
+        Route::delete('/deleteEmas/{id}', 'deleteEmas');
     }
 );
 // mutabaah
@@ -65,22 +66,30 @@ Route::controller(BeritaController::class)->group(function () {
     Route::get('/allBeritadanKhutbah', 'getBeritadanKhutbah');
     Route::get('/allBerita/{id}', 'detailBerita');
     Route::post('/storeBerita', 'storeBerita');
-    Route::post('/updateBerita/{berita_id}', 'updateBerita');
-    Route::delete('/deleteBerita/{berita_id}', 'deleteBerita');
+    Route::post('/updateBerita/{id}', 'updateBerita');
+    Route::delete('/deleteBerita/{id}', 'deleteBerita');
 });
 
 // khutbah
 Route::controller(KhutbahController::class)->group(function () {
     Route::get('/allKhutbah', 'getKhutbah');
     Route::post('/storeKhutbah', 'storeKhutbah');
-    Route::post('/updateKhutbah/{khutbah_id}', 'updateKhutbah');
-    Route::delete('/deleteKhutbah/{khutbah_id}', 'deleteKhutbah');
+    Route::post('/updateKhutbah/{id}', 'updateKhutbah');
+    Route::delete('/deleteKhutbah/{id}', 'deleteKhutbah');
 });
 
 // Doa dan Dzikir
 Route::controller(DoaDzikirController::class)->group(function () {
     Route::get('/allDzikir', 'getDzikir');
     Route::post('/storeDzikir', 'storeDzikir');
-    Route::post('/updateDzikir/{dzikir_id}', 'updateDzikir');
-    Route::delete('/deleteDzikir/{dzikir_id}', 'deleteDzikir');
+    Route::post('/updateDzikir/{id}', 'updateDzikir');
+    Route::delete('/deleteDzikir/{id}', 'deleteDzikir');
+});
+
+// dzikir pagi petang
+Route::controller(DzikirPagiPetangController::class)->group(function () {
+    Route::get('/allDzikirpp', 'allDzikirpp');
+    Route::post('/storeDzikirpp', 'storeDzikirpp');
+    Route::post('/updateDzikirpp/{id}', 'updateDzikirpp');
+    Route::delete('/deleteDzikirpp/{id}', 'deleteDzikirpp');
 });

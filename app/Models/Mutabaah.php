@@ -13,8 +13,8 @@ class Mutabaah extends Model
         'deskripsi',
         'user_id'
     ];
-    public function mutabaah()
+    public function User()
     {
-        return $this->hasMany(User::class, 'id', 'user_id');
+        return $this->belongsTo(User::class);
     }
 }

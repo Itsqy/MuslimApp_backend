@@ -17,7 +17,7 @@ class MutabaahController extends Controller
     {
         $user = Auth::user();
         $i = 1;
-        $mutabaah = Mutabaah::where('user_id', '=', $user->id)->get();
+        $mutabaah = Mutabaah::all();
         return view('content.mutabaah.mutabaah', compact('mutabaah', 'user', 'i'));
     }
 

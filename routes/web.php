@@ -6,6 +6,7 @@ use App\Http\Controllers\HomeController;
 use App\Http\Controllers\API\DoaController;
 use App\Http\Controllers\BeritaController;
 use App\Http\Controllers\DoaDzikirController;
+use App\Http\Controllers\DzikirPagiPetangController;
 use App\Http\Controllers\EmasController;
 use App\Http\Controllers\KategoriController;
 use App\Http\Controllers\KhutbahController;
@@ -96,7 +97,7 @@ Route::controller(KhutbahController::class)->group(function () {
 
 
 
-// khutbah
+// Doa
 Route::controller(DoaDzikirController::class)->group(function () {
     Route::get('/dzikir', 'getDzikir')->name('allDzikir');
     Route::get('/Dzikir/create', 'toFormDzikir')->name('toFormDzikir');
@@ -104,6 +105,17 @@ Route::controller(DoaDzikirController::class)->group(function () {
     Route::get('/Dzikir/edit/{id}', 'toFormEdit')->name('editDzikir');
     Route::put('/Dzikir/update/{id}', 'updateDzikir')->name('updateDzikir');
     Route::delete('/Dzikir/delete/{id}', 'deleteDzikir')->name('deleteDzikir');
+});
+
+
+// Dzikir PP
+Route::controller(DzikirPagiPetangController::class)->group(function () {
+    Route::get('/dzikirpp', 'getDzikirpp')->name('allDzikirpp');
+    Route::get('/Dzikirpp/create', 'toFormDzikirpp')->name('toFormDzikirpp');
+    Route::post('/Dzikirpp/store', 'storeDzikirpp')->name('storeDzikirpp');
+    Route::get('/Dzikirpp/edit/{id}', 'toFormEdit')->name('editDzikirpp');
+    Route::put('/Dzikirpp/update/{id}', 'updateDzikirpp')->name('updateDzikirpp');
+    Route::delete('/Dzikirpp/delete/{id}', 'deleteDzikirpp')->name('deleteDzikirpp');
 });
 
 // symlink

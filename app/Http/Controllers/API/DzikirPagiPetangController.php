@@ -28,10 +28,10 @@ class DzikirPagiPetangController extends Controller
         $newDzikir = new Dzikir();
         $pesan = [
             'judul.required'  => 'judul wajib diisi',
-            'arab.required'      => 'isi wajib diisi',
-            'latin.required'        => 'gambar wajib diisi',
-            'arti.required'    => 'kategori wajib diisi',
-            'riwayat.required'    => 'kategori wajib diisi',
+            'arab.required'      => 'arab wajib diisi',
+            'latin.required'        => 'latin wajib diisi',
+            'arti.required'    => 'arti wajib diisi',
+            'riwayat.required'    => 'riwayat wajib diisi',
         ];
         // validasi
         $validasi = Validator::make($request->all(), [
@@ -73,10 +73,10 @@ class DzikirPagiPetangController extends Controller
 
         $pesan = [
             'judul.required'  => 'judul wajib diisi',
-            'arab.required'      => 'isi wajib diisi',
-            'latin.required'        => 'gambar wajib diisi',
-            'arti.required'    => 'kategori wajib diisi',
-            'riwayat.required'    => 'kategori wajib diisi',
+            'arab.required'      => 'arab wajib diisi',
+            'latin.required'        => 'latin wajib diisi',
+            'arti.required'    => 'arti wajib diisi',
+            'riwayat.required'    => 'riwayat wajib diisi',
         ];
 
         $validasi = Validator::make($request->all(), [
