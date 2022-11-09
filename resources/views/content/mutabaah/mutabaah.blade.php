@@ -2,9 +2,6 @@
 @section('content')
 <div class="col-12">
     <div class="card recent-sales overflow-auto">
-
-     
-      
       <div class="card-body">
         
          <div class="d-flex justify-content-end" style="margin-block-start: -0.5%"  ><a class="btn btn-primary" href="{{route('toForm')}}" > <i class="bi bi-plus"></i></a></div>
